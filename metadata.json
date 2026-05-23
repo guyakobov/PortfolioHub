@@ -2,5 +2,5 @@
   "name": "Portfolio Hub",
   "description": "A professional portfolio website designed to showcase a collection of web applications, public projects, and private company work.",
   "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "majorCapabilities": []
 }

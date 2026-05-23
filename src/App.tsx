@@ -209,12 +209,12 @@ export default function App() {
               Access Archives
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </a>
-            <div className="flex items-center gap-6 text-cyan-500/50">
-              <a href="https://github.com" target="_blank" rel="noreferrer" className="hover:text-cyan-300 hover:scale-110 hover:drop-shadow-[0_0_8px_rgba(34,211,238,0.8)] transition-all">
+            <div className="flex items-center gap-4">
+              <a href="https://github.com/guyakobov" target="_blank" rel="noreferrer" className="grid h-12 w-12 place-items-center rounded-full border border-white/15 bg-white text-[#030014] shadow-[0_0_18px_rgba(255,255,255,0.18)] transition-all hover:scale-110 hover:bg-cyan-200 hover:shadow-[0_0_24px_rgba(34,211,238,0.45)]">
                 <span className="sr-only">GitHub</span>
                 <Github className="h-6 w-6" />
               </a>
-              <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="hover:text-cyan-300 hover:scale-110 hover:drop-shadow-[0_0_8px_rgba(34,211,238,0.8)] transition-all">
+              <a href="https://www.linkedin.com/in/guy-yakobov-471051129/" target="_blank" rel="noreferrer" className="grid h-12 w-12 place-items-center rounded-full border border-cyan-300/40 bg-[#0a66c2] text-white shadow-[0_0_18px_rgba(10,102,194,0.35)] transition-all hover:scale-110 hover:bg-[#0b7ee8] hover:shadow-[0_0_24px_rgba(10,126,232,0.55)]">
                 <span className="sr-only">LinkedIn</span>
                 <Linkedin className="h-6 w-6" />
               </a>

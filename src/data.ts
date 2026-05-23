@@ -1,5 +1,7 @@
 import { Project } from './types';
 
+const realEstateCrmSearchImage = new URL('./assets/real-estate-crm-search.png', import.meta.url).href;
+
 export const projects: Project[] = [
   {
     id: 'tech-knowledge-share',
@@ -26,19 +28,11 @@ export const projects: Project[] = [
     tags: ['AI', 'Platform', 'Modern UI'],
   },
   {
-    id: 'company-dashboard',
-    title: 'Enterprise Analytics Dashboard',
-    description: 'A comprehensive internal tool built for a private client to track KPIs, financial metrics, and user growth across multiple quarters.',
-    imageUrl: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop',
-    tags: ['Private', 'Enterprise', 'Data Viz'],
-    isPrivate: true,
-  },
-  {
-    id: 'company-ecommerce',
-    title: 'B2B E-Commerce Portal',
-    description: 'A high-throughput ordering system designed for wholesale clients, featuring complex pricing matrices and inventory sync.',
-    imageUrl: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1200&auto=format&fit=crop',
-    tags: ['Private', 'E-Commerce', 'B2B'],
+    id: 'real-estate-crm-search',
+    title: 'Real Estate CRM Property Search',
+    description: 'A private real-estate search tool built on CRM data, helping agents filter properties by location, price, rooms, status, and map clusters.',
+    imageUrl: realEstateCrmSearchImage,
+    tags: ['Private', 'Real Estate', 'CRM Search', 'Map UI'],
     isPrivate: true,
   }
 ];
