@@ -5,6 +5,7 @@ import { ProjectCard } from './components/ProjectCard';
 import { NeuralNetwork } from './components/NeuralNetwork';
 import { toggleMute, isMuted } from './utils/audio';
 import { useState, useEffect } from 'react';
+import heroCubeVisual from './assets/hero-cube-visual.png';
 
 function BootSequence({ onComplete }: { onComplete: () => void }) {
   const logs = [
@@ -173,12 +174,13 @@ export default function App() {
               {/* Hero Section */}
               <motion.section 
                 variants={{
-                  hidden: { opacity: 0, y: 30, filter: "blur(10px)" },
-                  visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.8, ease: "easeOut" } }
+                  hidden: { opacity: 0, y: 24 },
+                  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
                 }}
-                className="mx-auto max-w-4xl text-center mb-32"
+                className="mb-32 grid items-center gap-10 text-left lg:grid-cols-[0.7fr_1.3fr]"
               >
-          <div className="mb-12 flex justify-center">
+          <div>
+          <div className="mb-8 flex justify-start">
             <div className="inline-flex items-center gap-3 px-4 py-2 font-mono text-xs font-semibold uppercase tracking-widest text-cyan-400 bg-cyan-950/30 border border-cyan-500/30 rounded-full shadow-[0_0_15px_rgba(34,211,238,0.2)] backdrop-blur-md">
               <span className="relative flex h-2.5 w-2.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
@@ -188,19 +190,19 @@ export default function App() {
             </div>
           </div>
           
-          <h1 className="font-display text-5xl font-extrabold tracking-tighter sm:text-7xl mb-8 leading-tight">
-            <span className="block text-indigo-200">Awakening the</span>
-            <span className="block mt-2 relative">
+              <h1 className="mb-5 max-w-2xl font-display text-4xl font-extrabold leading-[1.02] tracking-tight text-white sm:text-6xl lg:text-5xl xl:text-6xl">
+            <span className="block sm:whitespace-nowrap text-indigo-200">Turning Vision</span>
+            <span className="relative mt-1 block">
               <span className="absolute -inset-2 bg-gradient-to-r from-cyan-400 via-fuchsia-400 to-indigo-400 blur-2xl opacity-40"></span>
-              <span className="relative text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-fuchsia-300 to-indigo-300">machine spirit.</span>
+              <span className="relative sm:whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-fuchsia-300 to-indigo-300">Into Products</span>
             </span>
           </h1>
           
-          <p className="mt-8 text-base sm:text-lg leading-relaxed text-cyan-200/80 max-w-2xl mx-auto font-mono tracking-wide">
-            &gt; SYS.MSG: Neural Architect &amp; Synthetic Systems Engineer. Breathing consciousness into cold logic and forging the next evolution of autonomous entity networks.
+          <p className="max-w-md text-sm leading-relaxed text-cyan-200/75 sm:text-base">
+            A curated collection of products, systems, and ideas brought to life.
           </p>
 
-          <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-6">
+          <div className="mt-9 flex flex-col items-start gap-6 sm:flex-row sm:items-center">
             <a
               href="#work"
               className="group relative inline-flex items-center gap-4 px-8 py-4 bg-cyan-500/10 border border-cyan-400/50 text-cyan-300 font-mono text-sm uppercase tracking-widest overflow-hidden transition-all hover:bg-cyan-500/20 hover:border-cyan-400 hover:shadow-[0_0_30px_rgba(34,211,238,0.3)] hover:-translate-y-1"
@@ -220,6 +222,30 @@ export default function App() {
               </a>
             </div>
           </div>
+          </div>
+
+          <motion.div
+            className="relative mt-8 min-h-[320px] sm:min-h-[400px] lg:mt-0 lg:min-h-[520px]"
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+          >
+            <motion.div
+              className="absolute inset-[-18px] overflow-visible mix-blend-screen"
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
+            >
+              <div className="pointer-events-none absolute inset-x-10 bottom-10 top-16 rounded-full bg-purple-700/20 blur-[90px]" />
+              <motion.img
+                src={heroCubeVisual}
+                alt="AI, data engineering, automation, and product systems visual"
+                className="absolute left-0 top-[-100px] w-full max-w-none opacity-90 [mask-image:radial-gradient(ellipse_at_center,black_36%,rgba(0,0,0,0.82)_58%,transparent_80%)] [mask-repeat:no-repeat] [mask-size:100%_100%] sm:top-[-140px] lg:top-[-180px]"
+                animate={{ scale: [1.01, 1.04, 1.01], filter: ['brightness(1)', 'brightness(1.1)', 'brightness(1)'] }}
+                transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+              />
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_38%,rgba(3,0,20,0.22)_68%,rgba(3,0,20,0)_100%)]" />
+            </motion.div>
+          </motion.div>
         </motion.section>
 
               {/* Work Section */}
