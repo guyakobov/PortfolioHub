@@ -14,10 +14,10 @@ export const projects: Project[] = [
   {
     id: 'mama-link',
     title: 'Mama Link',
-    description: 'A community-driven application connecting mothers, providing resources, support networks, and local activities tailored for families.',
+    description: 'A community-driven mobile application connecting mothers, providing resources, support networks, and local activities tailored for families.',
     url: 'https://mama-link.vercel.app/',
     imageUrl: 'https://images.unsplash.com/photo-1544126592-807ade215a0b?q=80&w=1200&auto=format&fit=crop',
-    tags: ['Community', 'Web App', 'Responsive'],
+    tags: ['Mobile App', 'Community', 'Responsive'],
   },
   {
     id: 'aiverse',

@@ -1,11 +1,35 @@
 import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react';
-import { Github, Linkedin, Mail, ArrowRight, ArrowUp, Volume2, VolumeX } from 'lucide-react';
+import { Box, Code2, Github, Linkedin, Mail, ArrowRight, ArrowUp, Users, Volume2, VolumeX } from 'lucide-react';
 import { projects } from './data';
 import { ProjectCard } from './components/ProjectCard';
 import { NeuralNetwork } from './components/NeuralNetwork';
 import { toggleMute, isMuted } from './utils/audio';
 import { useState, useEffect } from 'react';
 import heroCubeVisual from './assets/hero-cube-visual.png';
+
+const projectById = new Map(projects.map((project) => [project.id, project]));
+const projectGroups = [
+  {
+    title: 'Websites',
+    description: 'Public web platforms and content products.',
+    ids: ['aiverse', 'tech-knowledge-share'],
+  },
+  {
+    title: 'Mobile Applications',
+    description: 'Mobile-first products and community applications.',
+    ids: ['mama-link'],
+  },
+  {
+    title: 'Private Enterprise Work',
+    description: 'Selected client work shown with limited public detail.',
+    ids: ['real-estate-crm-search'],
+  },
+].map((group) => ({
+  ...group,
+  projects: group.ids
+    .map((id) => projectById.get(id))
+    .filter((project): project is NonNullable<ReturnType<typeof projectById.get>> => Boolean(project)),
+}));
 
 function BootSequence({ onComplete }: { onComplete: () => void }) {
   const logs = [
@@ -180,35 +204,36 @@ export default function App() {
                 className="mb-32 grid items-center gap-10 text-left lg:grid-cols-[0.7fr_1.3fr]"
               >
           <div>
-          <div className="mb-8 flex justify-start">
-            <div className="inline-flex items-center gap-3 px-4 py-2 font-mono text-xs font-semibold uppercase tracking-widest text-cyan-400 bg-cyan-950/30 border border-cyan-500/30 rounded-full shadow-[0_0_15px_rgba(34,211,238,0.2)] backdrop-blur-md">
+          <div className="mb-7 flex items-center gap-3">
               <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-cyan-500"></span>
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet-400 opacity-75"></span>
+                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-violet-400 shadow-[0_0_18px_rgba(167,139,250,0.75)]"></span>
               </span>
-              System Online • Available
+            <span className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-white/55">
+              Welcome to GY Studio
+            </span>
             </div>
-          </div>
           
-              <h1 className="mb-5 max-w-2xl font-display text-4xl font-extrabold leading-[1.02] tracking-tight text-white sm:text-6xl lg:text-5xl xl:text-6xl">
-            <span className="block sm:whitespace-nowrap text-indigo-200">Turning Vision</span>
-            <span className="relative mt-1 block">
-              <span className="absolute -inset-2 bg-gradient-to-r from-cyan-400 via-fuchsia-400 to-indigo-400 blur-2xl opacity-40"></span>
-              <span className="relative sm:whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-fuchsia-300 to-indigo-300">Into Products</span>
+              <h1 className="mb-6 max-w-2xl font-display text-5xl font-extrabold leading-[0.98] tracking-tight text-white sm:text-7xl lg:text-6xl xl:text-7xl">
+            <span className="block sm:whitespace-nowrap">Turning Vision</span>
+            <span className="relative mt-2 block sm:whitespace-nowrap">
+              <span>Into </span>
+              <span className="absolute -inset-2 bg-gradient-to-r from-violet-500 via-fuchsia-400 to-violet-300 blur-2xl opacity-35"></span>
+              <span className="relative bg-gradient-to-r from-violet-400 via-fuchsia-300 to-violet-300 bg-clip-text text-transparent drop-shadow-[0_0_22px_rgba(167,139,250,0.35)]">Products</span>
             </span>
           </h1>
           
-          <p className="max-w-md text-sm leading-relaxed text-cyan-200/75 sm:text-base">
+          <p className="max-w-md text-base leading-relaxed text-white/65 sm:text-lg">
             A curated collection of products, systems, and ideas brought to life.
           </p>
 
-          <div className="mt-9 flex flex-col items-start gap-6 sm:flex-row sm:items-center">
+          <div className="mt-9 flex flex-col items-start gap-5 sm:flex-row sm:items-center">
             <a
               href="#work"
-              className="group relative inline-flex items-center gap-4 px-8 py-4 bg-cyan-500/10 border border-cyan-400/50 text-cyan-300 font-mono text-sm uppercase tracking-widest overflow-hidden transition-all hover:bg-cyan-500/20 hover:border-cyan-400 hover:shadow-[0_0_30px_rgba(34,211,238,0.3)] hover:-translate-y-1"
+              className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full border border-violet-300/50 bg-violet-500 px-8 py-4 text-sm font-semibold text-white shadow-[0_0_28px_rgba(139,92,246,0.45)] transition-all hover:-translate-y-1 hover:bg-violet-400 hover:shadow-[0_0_36px_rgba(167,139,250,0.6)]"
             >
-              <span className="absolute inset-0 bg-gradient-to-r from-cyan-400/0 via-cyan-400/10 to-cyan-400/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out" />
-              Access Archives
+              <span className="absolute inset-0 translate-x-[-100%] bg-gradient-to-r from-white/0 via-white/20 to-white/0 transition-transform duration-700 ease-in-out group-hover:translate-x-[100%]" />
+              Explore Work
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </a>
             <div className="flex items-center gap-4">
@@ -220,6 +245,30 @@ export default function App() {
                 <span className="sr-only">LinkedIn</span>
                 <Linkedin className="h-6 w-6" />
               </a>
+            </div>
+          </div>
+
+          <div className="mt-12 grid max-w-2xl grid-cols-1 gap-6 text-white sm:grid-cols-3 sm:gap-0">
+            <div className="flex items-center gap-3 sm:border-r sm:border-white/10 sm:pr-6">
+              <Box className="h-7 w-7 text-white/70" />
+              <div>
+                <div className="text-2xl font-bold text-white">4+</div>
+                <div className="text-xs text-white/55">Projects</div>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 sm:border-r sm:border-white/10 sm:px-6">
+              <Code2 className="h-7 w-7 text-white/70" />
+              <div>
+                <div className="text-2xl font-bold text-white">8+</div>
+                <div className="text-xs text-white/55">Technologies</div>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 sm:pl-6">
+              <Users className="h-7 w-7 text-white/70" />
+              <div>
+                <div className="text-2xl font-bold text-white">10+</div>
+                <div className="text-xs text-white/55">Years of Building</div>
+              </div>
             </div>
           </div>
           </div>
@@ -273,15 +322,30 @@ export default function App() {
                 <span className="font-mono text-sm tracking-widest text-cyan-400 uppercase">Directory</span>
                 <span className="h-[1px] w-12 bg-cyan-500/30"></span>
               </div>
-              <h2 className="font-display text-4xl font-bold tracking-tight text-white drop-shadow-sm">Archived Projects</h2>
+              <h2 className="font-display text-4xl font-bold tracking-tight text-white drop-shadow-sm">Selected Projects</h2>
             </div>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {projects.map((project, index) => (
-                    <ProjectCard key={project.id} project={project} index={index} />
+          <div className="space-y-16">
+            {projectGroups.map((group) => (
+              <section key={group.title} aria-labelledby={`${group.title.toLowerCase().replace(/\s+/g, '-')}-heading`}>
+                <div className="mb-6 flex flex-col gap-2 border-l border-cyan-400/30 pl-4">
+                  <h3 id={`${group.title.toLowerCase().replace(/\s+/g, '-')}-heading`} className="font-display text-2xl font-bold tracking-tight text-white">
+                    {group.title}
+                  </h3>
+                  <p className="max-w-2xl text-sm leading-relaxed text-indigo-200/70">
+                    {group.description}
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+                  {group.projects.map((project) => (
+                    <ProjectCard key={project.id} project={project} index={projects.findIndex((item) => item.id === project.id)} />
                   ))}
                 </div>
+              </section>
+            ))}
+          </div>
               </motion.section>
 
               {/* Contact Section */}
@@ -353,6 +417,6 @@ export default function App() {
            )}
          </AnimatePresence>
        </div>
-     </>
+    </>
    );
  }
