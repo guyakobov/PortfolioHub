@@ -307,26 +307,32 @@ export default function App() {
             </div>
           </div>
 
-          <div className="mt-10 grid max-w-2xl grid-cols-3 gap-3 text-white sm:mt-12 sm:gap-0">
-            <div className="flex items-center gap-3 sm:border-r sm:border-white/10 sm:pr-6">
-              <Box className="h-5 w-5 flex-none text-white/70 sm:h-7 sm:w-7" />
-              <div>
-                <div className="text-xl font-bold text-white sm:text-2xl">4+</div>
-                <div className="text-[11px] text-white/55 sm:text-xs">Projects</div>
+          <div className="mt-10 grid w-full max-w-[620px] grid-cols-3 gap-0 text-white sm:mt-12">
+            <div data-stat="projects" className="flex min-w-0 justify-center border-r border-white/10 px-2">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <Box className="h-5 w-5 flex-none text-white/70 sm:h-7 sm:w-7" />
+                <div className="min-w-0">
+                  <div className="text-xl font-bold text-white sm:text-2xl">4+</div>
+                  <div className="text-[11px] text-white/55 sm:text-xs">Projects</div>
+                </div>
               </div>
             </div>
-            <div className="flex items-center gap-3 sm:border-r sm:border-white/10 sm:px-6">
-              <Code2 className="h-5 w-5 flex-none text-white/70 sm:h-7 sm:w-7" />
-              <div>
-                <div className="text-xl font-bold text-white sm:text-2xl">8+</div>
-                <div className="text-[11px] text-white/55 sm:text-xs">Technologies</div>
+            <div data-stat="technologies" className="flex min-w-0 justify-center border-r border-white/10 px-2">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <Code2 className="h-5 w-5 flex-none text-white/70 sm:h-7 sm:w-7" />
+                <div className="min-w-0">
+                  <div className="text-xl font-bold text-white sm:text-2xl">8+</div>
+                  <div className="text-[11px] text-white/55 sm:text-xs">Technologies</div>
+                </div>
               </div>
             </div>
-            <div className="flex items-center gap-3 sm:pl-6">
-              <Users className="h-5 w-5 flex-none text-white/70 sm:h-7 sm:w-7" />
-              <div>
-                <div className="text-xl font-bold text-white sm:text-2xl">10+</div>
-                <div className="text-[11px] leading-tight text-white/55 sm:text-xs">Years of Building</div>
+            <div data-stat="years" className="flex min-w-0 justify-center px-2">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <Users className="h-5 w-5 flex-none text-white/70 sm:h-7 sm:w-7" />
+                <div className="min-w-0">
+                  <div className="text-xl font-bold text-white sm:text-2xl">10+</div>
+                  <div className="text-[11px] leading-tight text-white/55 sm:text-xs">Years of Building</div>
+                </div>
               </div>
             </div>
           </div>
