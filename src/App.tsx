@@ -91,59 +91,22 @@ function BootSequence({ onComplete }: { onComplete: () => void }) {
 
 function MobileHeroVisual() {
   return (
-    <div className="relative mt-8 h-64 overflow-hidden sm:hidden">
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(167,139,250,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(167,139,250,0.08)_1px,transparent_1px)] bg-[size:34px_34px] opacity-40 [mask-image:radial-gradient(ellipse_at_center,black_15%,transparent_82%)]" />
-      <div className="absolute left-1/2 top-1/2 h-48 w-48 -translate-x-1/2 -translate-y-1/2 rounded-full bg-violet-600/25 blur-[70px]" />
-      <svg viewBox="0 0 360 250" className="absolute inset-0 h-full w-full" fill="none" aria-hidden="true">
-        <defs>
-          <linearGradient id="mobileCubeLine" x1="70" y1="42" x2="290" y2="208">
-            <stop stopColor="#8b5cf6" stopOpacity="0.15" />
-            <stop offset="0.5" stopColor="#c084fc" stopOpacity="0.9" />
-            <stop offset="1" stopColor="#8b5cf6" stopOpacity="0.15" />
-          </linearGradient>
-          <radialGradient id="mobileCubeGlow" cx="50%" cy="45%" r="60%">
-            <stop stopColor="#f5d0fe" stopOpacity="0.95" />
-            <stop offset="1" stopColor="#7c3aed" stopOpacity="0.08" />
-          </radialGradient>
-        </defs>
-
-        <ellipse cx="180" cy="135" rx="112" ry="60" stroke="#c084fc" strokeOpacity="0.24" />
-        <ellipse cx="180" cy="135" rx="88" ry="47" stroke="#c084fc" strokeOpacity="0.32" />
-        <path d="M65 70 L128 95" stroke="url(#mobileCubeLine)" />
-        <path d="M295 70 L232 95" stroke="url(#mobileCubeLine)" />
-        <path d="M75 200 L132 170" stroke="url(#mobileCubeLine)" />
-        <path d="M285 200 L228 170" stroke="url(#mobileCubeLine)" />
-
-        <polygon points="180,70 245,118 180,166 115,118" stroke="#c084fc" strokeOpacity="0.7" fill="#7c3aed" fillOpacity="0.11" />
-        <polygon points="180,94 220,123 180,154 140,123" stroke="#f3e8ff" strokeOpacity="0.9" fill="url(#mobileCubeGlow)" fillOpacity="0.55" />
-        <path d="M180 70 V94" stroke="#c084fc" strokeOpacity="0.5" />
-        <path d="M115 118 L140 123" stroke="#c084fc" strokeOpacity="0.35" />
-        <path d="M245 118 L220 123" stroke="#c084fc" strokeOpacity="0.35" />
-        <path d="M180 166 V154" stroke="#c084fc" strokeOpacity="0.5" />
-
-        {[82, 130, 230, 278].map((x, index) => (
-          <circle key={x} cx={x} cy={index < 2 ? 92 : 178} r="3" fill="#f5d0fe" />
-        ))}
-        <circle cx="180" cy="123" r="6" fill="#f5d0fe" />
-        <circle cx="180" cy="123" r="32" fill="#a855f7" fillOpacity="0.18" />
-      </svg>
-
-      <div className="absolute left-1 top-5 text-[10px] font-semibold text-white/85">
-        AI / ML
-        <div className="text-[9px] font-normal text-white/45">Intelligence Layer</div>
-      </div>
-      <div className="absolute right-1 top-5 text-right text-[10px] font-semibold text-white/85">
-        Data
-        <div className="text-[9px] font-normal text-white/45">Pipelines</div>
-      </div>
-      <div className="absolute bottom-5 left-2 text-[10px] font-semibold text-white/85">
-        Automation
-        <div className="text-[9px] font-normal text-white/45">Workflows</div>
-      </div>
-      <div className="absolute bottom-5 right-2 text-right text-[10px] font-semibold text-white/85">
-        Products
-        <div className="text-[9px] font-normal text-white/45">Real Impact</div>
-      </div>
+    <div className="relative mt-8 h-[400px] overflow-hidden sm:hidden">
+      <motion.div
+        className="absolute inset-0 overflow-visible mix-blend-screen"
+        animate={{ y: [0, -8, 0] }}
+        transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
+      >
+        <div className="pointer-events-none absolute inset-x-8 bottom-6 top-12 rounded-full bg-purple-700/20 blur-[70px]" />
+        <motion.img
+          src={heroCubeVisual}
+          alt="AI, data engineering, automation, and product systems visual"
+          className="absolute left-1/2 top-[-125px] w-[112%] max-w-none -translate-x-1/2 opacity-90 [mask-image:radial-gradient(ellipse_at_center,black_40%,rgba(0,0,0,0.86)_64%,transparent_84%)] [mask-repeat:no-repeat] [mask-size:100%_100%]"
+          animate={{ scale: [1.01, 1.035, 1.01], filter: ['brightness(1)', 'brightness(1.1)', 'brightness(1)'] }}
+          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+        />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(3,0,20,0.24)_72%,rgba(3,0,20,0)_100%)]" />
+      </motion.div>
     </div>
   );
 }
