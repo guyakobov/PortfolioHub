@@ -93,7 +93,7 @@ function MobileHeroVisual() {
   return (
     <div className="relative mt-8 h-[400px] overflow-hidden sm:hidden">
       <motion.div
-        className="absolute inset-0 overflow-visible mix-blend-screen"
+        className="absolute inset-0 overflow-visible mix-blend-lighten"
         animate={{ y: [0, -8, 0] }}
         transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
       >
@@ -101,11 +101,10 @@ function MobileHeroVisual() {
         <motion.img
           src={heroCubeVisual}
           alt="AI, data engineering, automation, and product systems visual"
-          className="absolute left-1/2 top-[-125px] w-[112%] max-w-none -translate-x-1/2 opacity-90 [mask-image:radial-gradient(ellipse_at_center,black_40%,rgba(0,0,0,0.86)_64%,transparent_84%)] [mask-repeat:no-repeat] [mask-size:100%_100%]"
+          className="absolute left-1/2 top-[-125px] w-[112%] max-w-none -translate-x-1/2 opacity-95 [clip-path:inset(0_3%_0_3%)]"
           animate={{ scale: [1.01, 1.035, 1.01], filter: ['brightness(1)', 'brightness(1.1)', 'brightness(1)'] }}
           transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
         />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(3,0,20,0.24)_72%,rgba(3,0,20,0)_100%)]" />
       </motion.div>
     </div>
   );
@@ -223,8 +222,10 @@ export default function App() {
                   hidden: { opacity: 0, y: 24 },
                   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
                 }}
-                className="mb-32 grid items-center gap-10 text-left lg:grid-cols-[0.7fr_1.3fr]"
+                className="relative mb-32 grid items-center gap-10 overflow-hidden py-8 text-left lg:grid-cols-[0.7fr_1.3fr]"
               >
+          <div className="pointer-events-none absolute inset-x-[-12vw] inset-y-[-60px] -z-10 bg-[radial-gradient(circle_at_24%_45%,rgba(139,92,246,0.18),transparent_30%),linear-gradient(90deg,rgba(3,0,20,0.92)_0%,rgba(3,0,20,0.96)_38%,rgba(3,0,20,0.98)_100%)]" />
+          <div className="pointer-events-none absolute inset-x-[-12vw] inset-y-[-60px] -z-10 bg-[linear-gradient(rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.025)_1px,transparent_1px)] bg-[size:40px_40px] opacity-60" />
           <div>
           <div className="mb-7 flex items-center gap-3">
               <span className="relative flex h-2.5 w-2.5">
@@ -310,7 +311,7 @@ export default function App() {
             transition={{ duration: 0.8, ease: 'easeOut' }}
           >
             <motion.div
-              className="absolute inset-0 overflow-visible mix-blend-screen sm:inset-[-18px]"
+              className="absolute inset-0 overflow-visible mix-blend-lighten sm:inset-[-18px]"
               animate={{ y: [0, -10, 0] }}
               transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
             >
@@ -318,11 +319,10 @@ export default function App() {
               <motion.img
                 src={heroCubeVisual}
                 alt="AI, data engineering, automation, and product systems visual"
-                className="absolute left-1/2 top-[-40px] w-[120%] max-w-none -translate-x-1/2 opacity-90 [mask-image:radial-gradient(ellipse_at_center,black_36%,rgba(0,0,0,0.82)_58%,transparent_80%)] [mask-repeat:no-repeat] [mask-size:100%_100%] sm:left-0 sm:top-[-140px] sm:w-full sm:translate-x-0 lg:top-[-180px]"
+                className="absolute left-1/2 top-[-40px] w-[120%] max-w-none -translate-x-1/2 opacity-95 [clip-path:inset(0_3%_0_3%)] sm:left-0 sm:top-[-140px] sm:w-full sm:translate-x-0 lg:top-[-180px]"
                 animate={{ scale: [1.01, 1.04, 1.01], filter: ['brightness(1)', 'brightness(1.1)', 'brightness(1)'] }}
                 transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
               />
-              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_38%,rgba(3,0,20,0.22)_68%,rgba(3,0,20,0)_100%)]" />
             </motion.div>
           </motion.div>
         </motion.section>
