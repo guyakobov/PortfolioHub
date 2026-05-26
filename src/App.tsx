@@ -192,7 +192,7 @@ export default function App() {
                   }
                 }
               }}
-              className="relative z-10 mx-auto max-w-7xl px-6 py-20 sm:py-32 lg:px-8"
+              className="relative z-10 mx-auto max-w-7xl px-5 py-16 sm:px-6 sm:py-32 lg:px-8"
             >
               
               {/* Hero Section */}
@@ -214,7 +214,7 @@ export default function App() {
             </span>
             </div>
           
-              <h1 className="mb-6 max-w-2xl font-display text-5xl font-extrabold leading-[0.98] tracking-tight text-white sm:text-7xl lg:text-6xl xl:text-7xl">
+              <h1 className="mb-6 max-w-2xl font-display text-[clamp(2.75rem,12vw,3.5rem)] font-extrabold leading-[0.98] tracking-tight text-white sm:text-7xl lg:text-6xl xl:text-7xl">
             <span className="block sm:whitespace-nowrap">Turning Vision</span>
             <span className="relative mt-2 block sm:whitespace-nowrap">
               <span>Into </span>
@@ -248,39 +248,39 @@ export default function App() {
             </div>
           </div>
 
-          <div className="mt-12 grid max-w-2xl grid-cols-1 gap-6 text-white sm:grid-cols-3 sm:gap-0">
+          <div className="mt-10 grid max-w-2xl grid-cols-3 gap-3 text-white sm:mt-12 sm:gap-0">
             <div className="flex items-center gap-3 sm:border-r sm:border-white/10 sm:pr-6">
-              <Box className="h-7 w-7 text-white/70" />
+              <Box className="h-5 w-5 flex-none text-white/70 sm:h-7 sm:w-7" />
               <div>
-                <div className="text-2xl font-bold text-white">4+</div>
-                <div className="text-xs text-white/55">Projects</div>
+                <div className="text-xl font-bold text-white sm:text-2xl">4+</div>
+                <div className="text-[11px] text-white/55 sm:text-xs">Projects</div>
               </div>
             </div>
             <div className="flex items-center gap-3 sm:border-r sm:border-white/10 sm:px-6">
-              <Code2 className="h-7 w-7 text-white/70" />
+              <Code2 className="h-5 w-5 flex-none text-white/70 sm:h-7 sm:w-7" />
               <div>
-                <div className="text-2xl font-bold text-white">8+</div>
-                <div className="text-xs text-white/55">Technologies</div>
+                <div className="text-xl font-bold text-white sm:text-2xl">8+</div>
+                <div className="text-[11px] text-white/55 sm:text-xs">Technologies</div>
               </div>
             </div>
             <div className="flex items-center gap-3 sm:pl-6">
-              <Users className="h-7 w-7 text-white/70" />
+              <Users className="h-5 w-5 flex-none text-white/70 sm:h-7 sm:w-7" />
               <div>
-                <div className="text-2xl font-bold text-white">10+</div>
-                <div className="text-xs text-white/55">Years of Building</div>
+                <div className="text-xl font-bold text-white sm:text-2xl">10+</div>
+                <div className="text-[11px] leading-tight text-white/55 sm:text-xs">Years of Building</div>
               </div>
             </div>
           </div>
           </div>
 
           <motion.div
-            className="relative mt-8 min-h-[320px] sm:min-h-[400px] lg:mt-0 lg:min-h-[520px]"
+            className="relative mt-8 min-h-[300px] overflow-hidden sm:min-h-[400px] sm:overflow-visible lg:mt-0 lg:min-h-[520px]"
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
           >
             <motion.div
-              className="absolute inset-[-18px] overflow-visible mix-blend-screen"
+              className="absolute inset-0 overflow-visible mix-blend-screen sm:inset-[-18px]"
               animate={{ y: [0, -10, 0] }}
               transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
             >
@@ -288,7 +288,7 @@ export default function App() {
               <motion.img
                 src={heroCubeVisual}
                 alt="AI, data engineering, automation, and product systems visual"
-                className="absolute left-0 top-[-100px] w-full max-w-none opacity-90 [mask-image:radial-gradient(ellipse_at_center,black_36%,rgba(0,0,0,0.82)_58%,transparent_80%)] [mask-repeat:no-repeat] [mask-size:100%_100%] sm:top-[-140px] lg:top-[-180px]"
+                className="absolute left-1/2 top-[-40px] w-[120%] max-w-none -translate-x-1/2 opacity-90 [mask-image:radial-gradient(ellipse_at_center,black_36%,rgba(0,0,0,0.82)_58%,transparent_80%)] [mask-repeat:no-repeat] [mask-size:100%_100%] sm:left-0 sm:top-[-140px] sm:w-full sm:translate-x-0 lg:top-[-180px]"
                 animate={{ scale: [1.01, 1.04, 1.01], filter: ['brightness(1)', 'brightness(1.1)', 'brightness(1)'] }}
                 transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
               />
@@ -409,7 +409,7 @@ export default function App() {
              exit={{ opacity: 0, y: 20, scale: 0.8 }}
              transition={{ duration: 0.3 }}
              onClick={scrollToTop}
-             className="fixed bottom-8 right-8 z-50 flex h-12 w-12 items-center justify-center bg-cyan-950/80 backdrop-blur-md border border-cyan-500/30 text-cyan-400 shadow-[0_0_15px_rgba(34,211,238,0.15)] hover:shadow-[0_0_20px_rgba(34,211,238,0.4)] transition-all hover:bg-cyan-900 hover:text-cyan-300 hover:border-cyan-400 active:scale-95 sm:bottom-12 sm:right-12"
+             className="fixed bottom-8 right-8 z-50 hidden h-12 w-12 items-center justify-center bg-cyan-950/80 backdrop-blur-md border border-cyan-500/30 text-cyan-400 shadow-[0_0_15px_rgba(34,211,238,0.15)] hover:shadow-[0_0_20px_rgba(34,211,238,0.4)] transition-all hover:bg-cyan-900 hover:text-cyan-300 hover:border-cyan-400 active:scale-95 sm:bottom-12 sm:right-12 sm:flex"
              aria-label="Scroll to top"
            >
              <ArrowUp className="h-5 w-5" />
