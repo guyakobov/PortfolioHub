@@ -38,13 +38,14 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
+        whileHover={{ y: -8 }}
         viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: 0.6, delay: Math.min(index * 0.1, 0.5), ease: "easeOut" }}
+        transition={{ duration: 0.55, delay: Math.min(index * 0.08, 0.35), ease: "easeOut" }}
         className="perspective-[1000px] h-full"
       >
         <div
           onMouseEnter={handleMouseEnter}
-          className="group relative flex flex-col h-full overflow-hidden bg-[#06041a] border border-white/5 hover:border-cyan-400/40 rounded-xl transition-colors duration-500"
+          className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#07051d]/70 shadow-[0_22px_70px_rgba(0,0,0,0.28)] backdrop-blur-md transition-all duration-500 hover:border-cyan-300/45 hover:shadow-[0_28px_90px_rgba(34,211,238,0.12)]"
         >
           {/* Sci-fi corner brackets */}
           <div className="absolute top-0 left-0 w-8 h-8 border-t-[1px] border-l-[1px] border-cyan-400/0 group-hover:border-cyan-400/60 transition-all duration-500 z-20 pointer-events-none rounded-tl-xl" />
@@ -53,10 +54,10 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           <div className="absolute bottom-0 left-0 w-8 h-8 border-b-[1px] border-l-[1px] border-fuchsia-400/0 group-hover:border-fuchsia-400/60 transition-all duration-500 z-20 pointer-events-none rounded-bl-xl" />
 
           {/* Ambient background glow inside card */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-cyan-500/20 rounded-full blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+          <div className="pointer-events-none absolute left-1/2 top-1/2 h-48 w-48 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-500/20 opacity-0 blur-[70px] transition-opacity duration-700 group-hover:opacity-100" />
 
-        <div className="relative aspect-video w-full overflow-hidden bg-[#020108] border-b border-white/5">
-          <div className="absolute inset-0 bg-blue-950/40 mix-blend-color z-10 pointer-events-none" />
+        <div className="relative aspect-[16/10] w-full overflow-hidden border-b border-white/10 bg-[#020108]">
+          <div className="pointer-events-none absolute inset-0 z-10 bg-blue-950/25 mix-blend-color" />
           {project.imageUrl ? (
             <button
               type="button"
@@ -67,10 +68,10 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
               <img
                 src={project.imageUrl}
                 alt={project.title}
-                className="h-full w-full object-cover transition-all duration-700 ease-out grayscale-[40%] opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105"
+                className="h-full w-full object-cover opacity-72 grayscale-[22%] transition-all duration-700 ease-out group-hover:scale-105 group-hover:grayscale-0 group-hover:opacity-100"
                 loading="lazy"
               />
-              <span className="absolute bottom-4 right-4 z-20 inline-flex items-center gap-2 rounded-full border border-white/15 bg-black/45 px-3 py-1.5 text-[10px] font-mono uppercase tracking-widest text-white/80 opacity-0 backdrop-blur-md transition-opacity group-hover:opacity-100">
+              <span className="absolute bottom-4 right-4 z-20 inline-flex items-center gap-2 rounded-full border border-white/15 bg-black/55 px-3 py-1.5 text-[10px] font-mono uppercase tracking-widest text-white/85 opacity-0 shadow-[0_0_20px_rgba(0,0,0,0.35)] backdrop-blur-md transition-opacity group-hover:opacity-100">
                 <Maximize2 className="h-3 w-3" />
                 Expand
               </span>
@@ -82,11 +83,11 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
             </div>
           )}
           {/* Subtle scanline overlay to sell the "future" vibe */}
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:100%_4px] pointer-events-none z-10" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#020108] via-transparent to-transparent opacity-90 z-10 pointer-events-none" />
+          <div className="pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(rgba(255,255,255,0.025)_1px,transparent_1px)] bg-[size:100%_4px]" />
+          <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-[#020108] via-transparent to-transparent opacity-85" />
         </div>
 
-        <div className="flex flex-1 flex-col p-6 relative z-10">
+        <div className="relative z-10 flex flex-1 flex-col p-6">
           <div className="mb-3 flex items-center justify-between">
             <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-cyan-400/60">
               <span>// PRJ_{index.toString().padStart(3, '0')}</span>
@@ -102,7 +103,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           </div>
 
           <div className="mb-4 flex items-start justify-between gap-4">
-            <h3 className="font-display text-2xl font-bold text-white tracking-tight group-hover:text-cyan-300 transition-colors drop-shadow-sm">
+            <h3 className="font-display text-2xl font-bold tracking-tight text-white drop-shadow-sm transition-colors group-hover:text-cyan-200">
               {project.title}
             </h3>
             
@@ -111,7 +112,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
                 href={project.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-1 grid h-10 w-10 flex-none place-items-center rounded-full border border-cyan-300/40 bg-cyan-300 text-[#030014] shadow-[0_0_18px_rgba(34,211,238,0.28)] transition-all hover:scale-110 hover:bg-white hover:shadow-[0_0_24px_rgba(34,211,238,0.55)]"
+                className="mt-1 grid h-11 w-11 flex-none place-items-center rounded-full border border-cyan-200/60 bg-cyan-300 text-[#030014] shadow-[0_0_18px_rgba(34,211,238,0.28)] transition-all hover:scale-110 hover:bg-white hover:shadow-[0_0_24px_rgba(34,211,238,0.55)]"
                 aria-label={`Visit ${project.title}`}
               >
                 <ExternalLink className="h-5 w-5" />
@@ -128,7 +129,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
               href={project.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="mb-5 inline-flex w-full items-center justify-center gap-3 rounded-lg border border-cyan-300/50 bg-cyan-300 px-4 py-3 text-sm font-bold text-[#030014] shadow-[0_0_20px_rgba(34,211,238,0.25)] transition-all hover:-translate-y-0.5 hover:bg-white hover:shadow-[0_0_28px_rgba(34,211,238,0.5)]"
+            className="mb-5 inline-flex w-full items-center justify-center gap-3 rounded-xl border border-cyan-200/60 bg-cyan-300 px-4 py-3 text-sm font-bold text-[#030014] shadow-[0_0_20px_rgba(34,211,238,0.25)] transition-all hover:-translate-y-0.5 hover:bg-white hover:shadow-[0_0_28px_rgba(34,211,238,0.5)]"
             >
               Visit site
               <ArrowUpRight className="h-4 w-4" />

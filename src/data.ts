@@ -28,6 +28,14 @@ export const projects: Project[] = [
     tags: ['AI', 'Platform', 'Modern UI'],
   },
   {
+    id: 'dream-wedding-demo',
+    title: 'Dream Wedding Planner',
+    description: 'A wedding planner platform for organizing vendors, events, inspiration, and planning details in one polished experience.',
+    url: 'https://dream-wedding-demo.vercel.app/',
+    imageUrl: 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1200&auto=format&fit=crop',
+    tags: ['Wedding Planner', 'Events', 'Platform'],
+  },
+  {
     id: 'real-estate-crm-search',
     title: 'Real Estate CRM Property Search',
     description: 'A private real-estate search tool built on CRM data, helping agents filter properties by location, price, rooms, status, and map clusters.',
