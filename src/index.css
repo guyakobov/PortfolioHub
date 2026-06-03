@@ -15,6 +15,14 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+html,
+body,
+#root {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 ::selection {
   background-color: rgba(34, 211, 238, 0.3);
   color: #cffafe;

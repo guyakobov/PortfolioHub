@@ -88,7 +88,7 @@ export default function SphereHero() {
   }), []);
 
   return (
-    <section className="relative flex min-h-screen w-full items-center justify-center overflow-visible bg-transparent font-sans">
+    <section className="relative flex min-h-screen w-full items-center justify-center overflow-x-clip overflow-y-visible bg-transparent font-sans">
       <div
         ref={hazeRef}
         className="absolute inset-0"

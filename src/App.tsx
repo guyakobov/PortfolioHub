@@ -165,7 +165,7 @@ export default function App() {
         {!bootComplete && <BootSequence onComplete={() => setBootComplete(true)} />}
       </AnimatePresence>
 
-      <div className={`relative min-h-screen bg-[#030712] ${!bootComplete ? 'h-screen overflow-hidden' : ''}`}>
+      <div className={`relative min-h-screen overflow-x-hidden bg-[#030712] ${!bootComplete ? 'h-screen overflow-hidden' : ''}`}>
         {bootComplete && (
           <>
             <div className="pointer-events-none fixed inset-0 z-0 opacity-100 mix-blend-screen">
