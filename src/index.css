@@ -66,6 +66,7 @@ body {
 
 .core-light {
   animation: coreGlow var(--core-glow-duration) ease-in-out infinite;
+  will-change: opacity, scale;
 }
 
 .sphere-container {
@@ -73,10 +74,16 @@ body {
   transform-style: preserve-3d;
 }
 
+.sphere-tilt {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
 .sphere-rotation {
   position: relative;
   transform-style: preserve-3d;
   animation: sphereRotate var(--sphere-rotation-duration) linear infinite;
+  will-change: transform;
 }
 
 .wireframe-line {
@@ -178,4 +185,37 @@ body {
 
 .vignette-overlay {
   background: radial-gradient(circle at center, transparent 42%, rgba(0, 0, 0, 0.2) 100%);
+}
+
+@media (max-width: 768px), (pointer: coarse) {
+  :root {
+    --wire-opacity: 0.5;
+    --wire-shadow: 34px;
+    --sphere-rotation-duration: 320s;
+    --core-glow-duration: 34s;
+  }
+
+  .wireframe-line {
+    box-shadow:
+      0 0 var(--wire-shadow) rgba(var(--primary), 0.22),
+      inset 0 0 22px rgba(var(--secondary), 0.12);
+  }
+
+  .core-light {
+    filter: blur(120px) !important;
+    box-shadow: 0 0 40px 18px rgba(var(--secondary), 0.14) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .core-light,
+  .sphere-rotation {
+    animation: none;
+  }
+
+  .btn-primary,
+  .btn-ghost,
+  .social-chip {
+    transition: none;
+  }
 }

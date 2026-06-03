@@ -1,6 +1,5 @@
 import { ArrowRight, Github, Linkedin } from 'lucide-react';
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { NeuralNetwork } from '../NeuralNetwork';
+import { useEffect, useMemo, useRef } from 'react';
 
 const CONFIG = {
   primaryColor: '139, 92, 246',
@@ -13,7 +12,7 @@ const CONFIG = {
   coreBlur: 200,
   parallaxDepth: 35,
   lerpFactor: 0.08,
-  sphereDensity: 12,
+  sphereDensity: 10,
 };
 
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
@@ -22,24 +21,47 @@ export default function SphereHero() {
   const targetMousePos = useRef({ x: 0, y: 0 });
   const currentMousePos = useRef({ x: 0, y: 0 });
   const animationFrameRef = useRef<number | null>(null);
-  const [, setFrame] = useState(0);
-
-  const animateLerp = useCallback(() => {
-    currentMousePos.current.x = lerp(currentMousePos.current.x, targetMousePos.current.x, CONFIG.lerpFactor);
-    currentMousePos.current.y = lerp(currentMousePos.current.y, targetMousePos.current.y, CONFIG.lerpFactor);
-    setFrame((value) => (value + 1) % 100000);
-    animationFrameRef.current = requestAnimationFrame(animateLerp);
-  }, []);
+  const hazeRef = useRef<HTMLDivElement>(null);
+  const baseRef = useRef<HTMLDivElement>(null);
+  const glowRef = useRef<HTMLDivElement>(null);
+  const tiltRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
+    if (prefersReducedMotion || isCoarsePointer) return;
+
+    const animateLerp = () => {
+      currentMousePos.current.x = lerp(currentMousePos.current.x, targetMousePos.current.x, CONFIG.lerpFactor);
+      currentMousePos.current.y = lerp(currentMousePos.current.y, targetMousePos.current.y, CONFIG.lerpFactor);
+
+      const { x, y } = currentMousePos.current;
+      const parallaxDepth = CONFIG.parallaxDepth;
+      if (hazeRef.current) {
+        hazeRef.current.style.transform = `translate3d(${x * (parallaxDepth / 2)}px, ${y * (parallaxDepth / 2)}px, 0)`;
+      }
+      if (baseRef.current) {
+        baseRef.current.style.transform = `translate3d(${x * parallaxDepth}px, ${y * parallaxDepth}px, 0)`;
+      }
+      if (glowRef.current) {
+        glowRef.current.style.transform = `translate3d(${x * parallaxDepth}px, ${y * parallaxDepth}px, 0)`;
+      }
+      if (tiltRef.current) {
+        tiltRef.current.style.transform = `rotateX(${y * 5}deg) rotateY(${-x * 5}deg)`;
+      }
+
+      animationFrameRef.current = requestAnimationFrame(animateLerp);
+    };
+
     animationFrameRef.current = requestAnimationFrame(animateLerp);
     return () => {
       if (animationFrameRef.current) cancelAnimationFrame(animationFrameRef.current);
     };
-  }, [animateLerp]);
+  }, []);
 
   useEffect(() => {
-    const handleMouseMove = (event: MouseEvent) => {
+    const handlePointerMove = (event: PointerEvent) => {
+      if (event.pointerType !== 'mouse') return;
       const centerX = window.innerWidth / 2;
       const centerY = window.innerHeight / 2;
       targetMousePos.current = {
@@ -48,17 +70,11 @@ export default function SphereHero() {
       };
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    window.addEventListener('pointermove', handlePointerMove, { passive: true });
+    return () => window.removeEventListener('pointermove', handlePointerMove);
   }, []);
 
-  const { x: smoothX, y: smoothY } = currentMousePos.current;
-  const parallaxDepth = CONFIG.parallaxDepth;
-  const baseTranslate = `translate3d(${smoothX * parallaxDepth}px, ${smoothY * parallaxDepth}px, 0)`;
-  const hazeTranslate = `translate3d(${smoothX * (parallaxDepth / 2)}px, ${smoothY * (parallaxDepth / 2)}px, 0)`;
-  const tiltTranslate = `rotateX(${smoothY * 5}deg) rotateY(${-smoothX * 5}deg)`;
-
-  const sphereRings = Array.from({ length: CONFIG.sphereDensity }, (_, index) => {
+  const sphereRings = useMemo(() => Array.from({ length: CONFIG.sphereDensity }, (_, index) => {
     const step = 90 / (CONFIG.sphereDensity / 2);
     const angle = index * step;
     return (
@@ -69,14 +85,14 @@ export default function SphereHero() {
         aria-hidden="true"
       />
     );
-  });
+  }), []);
 
   return (
     <section className="relative flex min-h-screen w-full items-center justify-center overflow-visible bg-transparent font-sans">
       <div
+        ref={hazeRef}
         className="absolute inset-0"
         style={{
-          transform: hazeTranslate,
           backgroundImage: `radial-gradient(circle at 50% 50%, rgba(${CONFIG.primaryColor}, 0.15) 0%, transparent 50%)`,
           filter: 'blur(150px)',
           opacity: 0.6,
@@ -85,9 +101,9 @@ export default function SphereHero() {
       />
 
       <div
+        ref={baseRef}
         className="absolute inset-0"
         style={{
-          transform: baseTranslate,
           backgroundImage: `radial-gradient(at 50% 50%, rgba(${CONFIG.primaryColor}, 0.06) 0%, transparent 72%)`,
         }}
       >
@@ -106,21 +122,25 @@ export default function SphereHero() {
 
       <div className="sphere-container pointer-events-none absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2">
         <div
-          className="sphere-rotation h-[min(700px,82vw)] w-[min(700px,82vw)]"
-          style={{
-            transform: tiltTranslate,
-            transformOrigin: 'center center',
-            animationDuration: CONFIG.sphereRotationDuration,
-          }}
+          ref={tiltRef}
+          className="sphere-tilt h-[min(700px,82vw)] w-[min(700px,82vw)]"
+          style={{ transformOrigin: 'center center' }}
         >
-          {sphereRings}
+          <div
+            className="sphere-rotation h-full w-full"
+            style={{
+              animationDuration: CONFIG.sphereRotationDuration,
+            }}
+          >
+            {sphereRings}
+          </div>
         </div>
       </div>
 
       <div
+        ref={glowRef}
         className="absolute inset-0"
         style={{
-          transform: baseTranslate,
           backgroundImage: `radial-gradient(circle at 50% 50%, rgba(${CONFIG.primaryColor}, 0.35) 0%, transparent 50%), radial-gradient(circle at 10% 10%, rgba(${CONFIG.secondaryColor}, 0.25) 0%, transparent 30%)`,
           mixBlendMode: 'screen',
           filter: 'blur(100px)',

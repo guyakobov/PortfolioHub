@@ -11,16 +11,22 @@ export function NeuralNetwork() {
     if (!ctx) return;
 
     let particles: Particle[] = [];
-    const particleCount = 80;
+    let particleCount = 60;
     let animationFrameId: number;
+    let lastFrameTime = 0;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
+    const targetFps = prefersReducedMotion ? 12 : isCoarsePointer ? 24 : 45;
+    const frameInterval = 1000 / targetFps;
 
     const mouse = {
       x: null as number | null,
       y: null as number | null,
-      radius: 200,
+      radius: isCoarsePointer ? 0 : 200,
     };
 
-    const handleMouseMove = (event: MouseEvent) => {
+    const handlePointerMove = (event: PointerEvent) => {
+      if (event.pointerType !== 'mouse') return;
       mouse.x = event.clientX;
       mouse.y = event.clientY;
     };
@@ -30,12 +36,19 @@ export function NeuralNetwork() {
       mouse.y = null;
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mouseleave', handleMouseLeave);
+    window.addEventListener('pointermove', handlePointerMove, { passive: true });
+    window.addEventListener('pointerleave', handleMouseLeave);
 
     const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const dpr = Math.min(window.devicePixelRatio || 1, isCoarsePointer ? 1 : 1.25);
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      particleCount = isCoarsePointer ? 34 : Math.min(64, Math.max(44, Math.floor((width * height) / 18000)));
       init();
     };
 
@@ -49,19 +62,21 @@ export function NeuralNetwork() {
       speedY: number;
 
       constructor() {
-        this.x = Math.random() * canvas!.width;
-        this.y = Math.random() * canvas!.height;
+        this.x = Math.random() * window.innerWidth;
+        this.y = Math.random() * window.innerHeight;
         this.size = Math.random() * 2 + 0.5;
         this.speedX = (Math.random() - 0.5) * 0.8;
         this.speedY = (Math.random() - 0.5) * 0.8;
       }
 
-      update() {
-        if (this.x > canvas!.width || this.x < 0) this.speedX = -this.speedX;
-        if (this.y > canvas!.height || this.y < 0) this.speedY = -this.speedY;
+      update(delta: number) {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        if (this.x > width || this.x < 0) this.speedX = -this.speedX;
+        if (this.y > height || this.y < 0) this.speedY = -this.speedY;
 
-        this.x += this.speedX;
-        this.y += this.speedY;
+        this.x += this.speedX * delta;
+        this.y += this.speedY * delta;
 
         if (mouse.x != null && mouse.y != null) {
           const dx = mouse.x - this.x;
@@ -95,23 +110,29 @@ export function NeuralNetwork() {
     }
 
     function animate() {
+      animationFrameId = requestAnimationFrame(animate);
       if (!ctx || !canvas) return;
-      
-      ctx.globalCompositeOperation = 'destination-out';
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      const now = performance.now();
+      const elapsed = now - lastFrameTime;
+      if (elapsed < frameInterval) return;
+      const delta = Math.min(elapsed / 16.67, 2);
+      lastFrameTime = now - (elapsed % frameInterval);
+
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
       ctx.globalCompositeOperation = 'lighter';
 
       for (let i = 0; i < particles.length; i++) {
-        particles[i].update();
+        particles[i].update(delta);
         particles[i].draw();
 
-        for (let j = i; j < particles.length; j++) {
+        for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
           const dy = particles[i].y - particles[j].y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
+          const distanceSq = dx * dx + dy * dy;
 
-          if (distance < 100) {
+          if (distanceSq < 10000) {
+            const distance = Math.sqrt(distanceSq);
             ctx.beginPath();
             ctx.strokeStyle = `rgba(34, 211, 238, ${(1 - distance / 100) * 0.2})`;
             ctx.lineWidth = 1;
@@ -138,15 +159,14 @@ export function NeuralNetwork() {
           }
         }
       }
-      animationFrameId = requestAnimationFrame(animate);
     }
 
     resizeCanvas();
     animate();
 
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseleave', handleMouseLeave);
+      window.removeEventListener('pointermove', handlePointerMove);
+      window.removeEventListener('pointerleave', handleMouseLeave);
       window.removeEventListener('resize', resizeCanvas);
       cancelAnimationFrame(animationFrameId);
     };
